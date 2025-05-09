@@ -10,6 +10,9 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from rest_framework.pagination import PageNumberPagination
 from asgiref.sync import sync_to_async
+from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter
 
 class HelloWorldView(APIView):
     def get(self, request):
@@ -75,3 +78,19 @@ class ModelNameListCreateView(generics.ListCreateAPIView):
 class ModelNameRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ModelName.objects.select_related().all()
     serializer_class = ModelNameSerializer
+
+class FunctionalityView(generics.ListCreateAPIView):
+    queryset = ModelName.objects.all()
+    serializer_class = ModelNameSerializer
+    permission_classes = [IsAuthenticated]
+    pagination_class = PageNumberPagination
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_fields = ['field1', 'field2']
+    ordering_fields = ['field1', 'field2']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        field1 = self.request.query_params.get('field1')
+        if field1:
+            queryset = queryset.filter(field1=field1)
+        return queryset

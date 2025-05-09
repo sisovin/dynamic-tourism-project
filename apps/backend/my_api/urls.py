@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HelloWorldView, DestinationListCreateView, DestinationRetrieveUpdateDestroyView, UserCreateView, UserLoginView, UserRefreshTokenView, ModelNameListCreateView, ModelNameRetrieveUpdateDestroyView
+from .views import HelloWorldView, DestinationListCreateView, DestinationRetrieveUpdateDestroyView, UserCreateView, UserLoginView, UserRefreshTokenView, ModelNameListCreateView, ModelNameRetrieveUpdateDestroyView, FunctionalityView
 
 urlpatterns = [
     path('hello/', HelloWorldView.as_view(), name='hello_world'),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('auth/refresh/', UserRefreshTokenView.as_view(), name='token_refresh'),
     path('modelname/', ModelNameListCreateView.as_view(), name='modelname_list_create'),
     path('modelname/<int:pk>/', ModelNameRetrieveUpdateDestroyView.as_view(), name='modelname_detail'),
+    path('functionality/', FunctionalityView.as_view(), name='functionality'),
 ]

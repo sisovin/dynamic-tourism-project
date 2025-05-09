@@ -49,3 +49,8 @@ class ModelNameSerializer(serializers.ModelSerializer):
         if value < 0:
             raise serializers.ValidationError("field2 must be a positive integer.")
         return value
+
+class FunctionalitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ModelName
+        fields = ['id', 'field1', 'field2', 'field3', 'relationship_field', 'created_at', 'updated_at']
