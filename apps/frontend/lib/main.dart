@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'widgets/destination_card.dart';
+import 'widgets/hero_carousel.dart';
+import 'widgets/search_bar.dart';
+import 'widgets/featured_destinations_grid.dart';
+import 'widgets/testimonials_section.dart';
+import 'widgets/newsletter_signup.dart';
+import 'widgets/responsive_layout.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,15 +31,34 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Dynamic Tourism Project'),
       ),
-      body: DestinationCard(
-        title: 'Beautiful Beach',
-        imageUrl: 'https://example.com/beach.jpg',
-        rating: 4.5,
-        price: 200.0,
-        discount: 10.0,
-        onBookNow: () {
-          // Handle book now action
-        },
+      body: ResponsiveLayout(
+        mobileLayout: Column(
+          children: [
+            HeroCarousel(),
+            SearchBar(),
+            Expanded(child: FeaturedDestinationsGrid()),
+            TestimonialsSection(),
+            NewsletterSignup(),
+          ],
+        ),
+        tabletLayout: Column(
+          children: [
+            HeroCarousel(),
+            SearchBar(),
+            Expanded(child: FeaturedDestinationsGrid()),
+            TestimonialsSection(),
+            NewsletterSignup(),
+          ],
+        ),
+        desktopLayout: Column(
+          children: [
+            HeroCarousel(),
+            SearchBar(),
+            Expanded(child: FeaturedDestinationsGrid()),
+            TestimonialsSection(),
+            NewsletterSignup(),
+          ],
+        ),
       ),
     );
   }
