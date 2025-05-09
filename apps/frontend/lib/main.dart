@@ -8,6 +8,7 @@ import 'widgets/testimonials_section.dart';
 import 'widgets/newsletter_signup.dart';
 import 'widgets/responsive_layout.dart';
 import 'widgets/booking_form.dart';
+import 'theme/app_theme.dart';
 
 void main() async {
   await SentryFlutter.init(
@@ -24,9 +25,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Dynamic Tourism Project',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       home: MyHomePage(),
     );
   }
