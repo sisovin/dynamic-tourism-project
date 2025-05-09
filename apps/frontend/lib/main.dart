@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/destination_card.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,8 +25,15 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Dynamic Tourism Project'),
       ),
-      body: Center(
-        child: Text('Welcome to the Dynamic Tourism Project!'),
+      body: DestinationCard(
+        title: 'Beautiful Beach',
+        imageUrl: 'https://example.com/beach.jpg',
+        rating: 4.5,
+        price: 200.0,
+        discount: 10.0,
+        onBookNow: () {
+          // Handle book now action
+        },
       ),
     );
   }
