@@ -6,6 +6,7 @@ import 'widgets/featured_destinations_grid.dart';
 import 'widgets/testimonials_section.dart';
 import 'widgets/newsletter_signup.dart';
 import 'widgets/responsive_layout.dart';
+import 'widgets/booking_form.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,6 +40,7 @@ class MyHomePage extends StatelessWidget {
             Expanded(child: FeaturedDestinationsGrid()),
             TestimonialsSection(),
             NewsletterSignup(),
+            BookingForm(),
           ],
         ),
         tabletLayout: Column(
@@ -48,6 +50,7 @@ class MyHomePage extends StatelessWidget {
             Expanded(child: FeaturedDestinationsGrid()),
             TestimonialsSection(),
             NewsletterSignup(),
+            BookingForm(),
           ],
         ),
         desktopLayout: Column(
@@ -57,6 +60,7 @@ class MyHomePage extends StatelessWidget {
             Expanded(child: FeaturedDestinationsGrid()),
             TestimonialsSection(),
             NewsletterSignup(),
+            BookingForm(),
           ],
         ),
       ),
