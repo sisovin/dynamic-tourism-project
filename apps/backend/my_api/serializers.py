@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Destination, ModelName
+from .models import Destination, ModelName, Booking, Blog, Testimonial, Guide, Contact
 from django.contrib.auth.models import User
 from argon2 import PasswordHasher
 
@@ -54,3 +54,28 @@ class FunctionalitySerializer(serializers.ModelSerializer):
     class Meta:
         model = ModelName
         fields = ['id', 'field1', 'field2', 'field3', 'relationship_field', 'created_at', 'updated_at']
+
+class BookingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ['id', 'user', 'destination', 'start_date', 'end_date', 'payment_status', 'created_at', 'updated_at']
+
+class BlogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Blog
+        fields = ['id', 'title', 'content', 'author', 'created_at', 'updated_at']
+
+class TestimonialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Testimonial
+        fields = ['id', 'customer_name', 'content', 'rating', 'created_at', 'updated_at']
+
+class GuideSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Guide
+        fields = ['id', 'name', 'bio', 'languages', 'created_at', 'updated_at']
+
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['id', 'name', 'email', 'message', 'created_at', 'updated_at']

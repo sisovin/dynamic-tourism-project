@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.auth.models import User
 
 class Destination(models.Model):
     CONTINENT_CHOICES = [
@@ -75,3 +76,40 @@ class ModelName(models.Model):
     class Meta:
         verbose_name = "ModelName"
         verbose_name_plural = "ModelNames"
+
+class Booking(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    destination = models.ForeignKey(Destination, on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    payment_status = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Blog(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    author = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Testimonial(models.Model):
+    customer_name = models.CharField(max_length=255)
+    content = models.TextField()
+    rating = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Guide(models.Model):
+    name = models.CharField(max_length=255)
+    bio = models.TextField()
+    languages = ArrayField(models.CharField(max_length=50))
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Contact(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
