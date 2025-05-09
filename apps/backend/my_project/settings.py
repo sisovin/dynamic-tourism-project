@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'my_api',
     'corsheaders',  # P1f8b
     'django_ratelimit',  # P4ac3
+    'prisma',  # Pf101
 ]
 
 MIDDLEWARE = [
@@ -69,6 +70,14 @@ DATABASES = {
         'PASSWORD': os.getenv('DB_PASSWORD', 'mypassword'),
         'HOST': os.getenv('DB_HOST', 'localhost'),
         'PORT': os.getenv('DB_PORT', '5432'),
+    },
+    'prisma': {  # P0e2c
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('PRISMA_DB_NAME', 'mydatabase'),
+        'USER': os.getenv('PRISMA_DB_USER', 'mydatabaseuser'),
+        'PASSWORD': os.getenv('PRISMA_DB_PASSWORD', 'mypassword'),
+        'HOST': os.getenv('PRISMA_DB_HOST', 'localhost'),
+        'PORT': os.getenv('PRISMA_DB_PORT', '5432'),
     }
 }
 

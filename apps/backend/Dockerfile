@@ -8,6 +8,9 @@ WORKDIR /app
 COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install Prisma CLI
+RUN npm install -g prisma
+
 # Expose port 8000
 EXPOSE 8000
 
