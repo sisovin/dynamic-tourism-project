@@ -6,17 +6,29 @@ from .serializers import DestinationSerializer, UserSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from django_ratelimit.decorators import ratelimit
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from rest_framework.pagination import PageNumberPagination
+from asgiref.sync import sync_to_async
 
 class HelloWorldView(APIView):
     def get(self, request):
         return Response({"message": "Hello, world!"}, status=status.HTTP_200_OK)
 
 class DestinationListCreateView(generics.ListCreateAPIView):
-    queryset = Destination.objects.all()
+    queryset = Destination.objects.select_related().all()
     serializer_class = DestinationSerializer
+    pagination_class = PageNumberPagination
+
+    @method_decorator(cache_page(60*15))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    async def perform_create(self, serializer):
+        await sync_to_async(serializer.save)()
 
 class DestinationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Destination.objects.all()
+    queryset = Destination.objects.select_related().all()
     serializer_class = DestinationSerializer
 
 class UserCreateView(generics.CreateAPIView):
