@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics
-from .models import Destination, ModelName
-from .serializers import DestinationSerializer, UserSerializer, ModelNameSerializer
+from .models import Destination, ModelName, Booking, Blog, Testimonial, Guide, Contact
+from .serializers import DestinationSerializer, UserSerializer, ModelNameSerializer, BookingSerializer, BlogSerializer, TestimonialSerializer, GuideSerializer, ContactSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from django_ratelimit.decorators import ratelimit
@@ -94,3 +94,83 @@ class FunctionalityView(generics.ListCreateAPIView):
         if field1:
             queryset = queryset.filter(field1=field1)
         return queryset
+
+class BookingListCreateView(generics.ListCreateAPIView):
+    queryset = Booking.objects.select_related().all()
+    serializer_class = BookingSerializer
+    pagination_class = PageNumberPagination
+
+    @method_decorator(cache_page(60*15))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    async def perform_create(self, serializer):
+        await sync_to_async(serializer.save)()
+
+class BookingRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Booking.objects.select_related().all()
+    serializer_class = BookingSerializer
+
+class BlogListCreateView(generics.ListCreateAPIView):
+    queryset = Blog.objects.select_related().all()
+    serializer_class = BlogSerializer
+    pagination_class = PageNumberPagination
+
+    @method_decorator(cache_page(60*15))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    async def perform_create(self, serializer):
+        await sync_to_async(serializer.save)()
+
+class BlogRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.select_related().all()
+    serializer_class = BlogSerializer
+
+class TestimonialListCreateView(generics.ListCreateAPIView):
+    queryset = Testimonial.objects.select_related().all()
+    serializer_class = TestimonialSerializer
+    pagination_class = PageNumberPagination
+
+    @method_decorator(cache_page(60*15))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    async def perform_create(self, serializer):
+        await sync_to_async(serializer.save)()
+
+class TestimonialRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Testimonial.objects.select_related().all()
+    serializer_class = TestimonialSerializer
+
+class GuideListCreateView(generics.ListCreateAPIView):
+    queryset = Guide.objects.select_related().all()
+    serializer_class = GuideSerializer
+    pagination_class = PageNumberPagination
+
+    @method_decorator(cache_page(60*15))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    async def perform_create(self, serializer):
+        await sync_to_async(serializer.save)()
+
+class GuideRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Guide.objects.select_related().all()
+    serializer_class = GuideSerializer
+
+class ContactListCreateView(generics.ListCreateAPIView):
+    queryset = Contact.objects.select_related().all()
+    serializer_class = ContactSerializer
+    pagination_class = PageNumberPagination
+
+    @method_decorator(cache_page(60*15))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    async def perform_create(self, serializer):
+        await sync_to_async(serializer.save)()
+
+class ContactRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Contact.objects.select_related().all()
+    serializer_class = ContactSerializer
