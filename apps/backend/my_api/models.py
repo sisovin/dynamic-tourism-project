@@ -47,3 +47,31 @@ class Destination(models.Model):
     class Meta:
         verbose_name = "Destination"
         verbose_name_plural = "Destinations"
+
+class ModelName(models.Model):
+    field1 = models.CharField(max_length=255)
+    field2 = models.IntegerField()
+    field3 = models.DateField()
+    relationship_field = models.ForeignKey(Destination, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def method1(self):
+        """
+        Example method for ModelName.
+        """
+        return f"Method1 result for {self.field1}"
+
+    def clean(self):
+        """
+        Example validation for ModelName.
+        """
+        if self.field2 < 0:
+            raise ValidationError('field2 must be a positive integer.')
+
+    def __str__(self):
+        return self.field1
+
+    class Meta:
+        verbose_name = "ModelName"
+        verbose_name_plural = "ModelNames"

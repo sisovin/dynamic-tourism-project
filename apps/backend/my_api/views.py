@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics
-from .models import Destination
-from .serializers import DestinationSerializer, UserSerializer
+from .models import Destination, ModelName
+from .serializers import DestinationSerializer, UserSerializer, ModelNameSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from django_ratelimit.decorators import ratelimit
@@ -59,3 +59,19 @@ class UserRefreshTokenView(APIView):
             return Response(data)
         except Exception as e:
             return Response({'error': 'Invalid refresh token'}, status=status.HTTP_400_BAD_REQUEST)
+
+class ModelNameListCreateView(generics.ListCreateAPIView):
+    queryset = ModelName.objects.select_related().all()
+    serializer_class = ModelNameSerializer
+    pagination_class = PageNumberPagination
+
+    @method_decorator(cache_page(60*15))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    async def perform_create(self, serializer):
+        await sync_to_async(serializer.save)()
+
+class ModelNameRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ModelName.objects.select_related().all()
+    serializer_class = ModelNameSerializer
