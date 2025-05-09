@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'widgets/destination_card.dart';
 import 'widgets/hero_carousel.dart';
 import 'widgets/search_bar.dart';
@@ -8,8 +9,14 @@ import 'widgets/newsletter_signup.dart';
 import 'widgets/responsive_layout.dart';
 import 'widgets/booking_form.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  await SentryFlutter.init(
+    (options) {
+      options.dsn = 'YOUR_SENTRY_DSN';
+      options.environment = 'YOUR_SENTRY_ENVIRONMENT';
+    },
+    appRunner: () => runApp(MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
