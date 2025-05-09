@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'my_api',
     'corsheaders',  # P1f8b
+    'django_ratelimit',  # P4ac3
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,10 @@ REST_FRAMEWORK = {
 
 # Prisma ORM integration
 PRISMA_DATABASE_URL = os.getenv('PRISMA_DATABASE_URL', 'postgresql://mydatabaseuser:mypassword@localhost:5432/mydatabase')  # Pcc60
+
+# Rate limiting settings for authentication endpoints
+RATELIMIT_VIEW = 'django_ratelimit.views.ratelimited'  # P0126
+
+# Secure cookie settings for production
+SESSION_COOKIE_SECURE = True  # P6b76
+CSRF_COOKIE_SECURE = True  # P6b76
