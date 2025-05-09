@@ -23,11 +23,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'my_api',
+    'corsheaders',  # P1f8b
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # P8e06
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -109,3 +111,17 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CORS headers configuration
+CORS_ALLOW_ALL_ORIGINS = True  # P38ff
+
+# REST framework settings for API versioning and JWT authentication
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+}  # P7db3
+
+# Prisma ORM integration
+PRISMA_DATABASE_URL = os.getenv('PRISMA_DATABASE_URL', 'postgresql://mydatabaseuser:mypassword@localhost:5432/mydatabase')  # Pcc60
