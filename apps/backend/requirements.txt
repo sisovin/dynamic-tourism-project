@@ -9,3 +9,4 @@ argon2-cffi
 djangorestframework-simplejwt
 django-ratelimit
 django-redis
+sentry-sdk
