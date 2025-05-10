@@ -182,6 +182,66 @@ cd dynamic-tourism-project
 
 ---
 
+## Setting Up Redis and Sentry
+
+### Redis
+1. **Ensure Redis is running**:
+   ```bash
+   docker-compose up -d redis
+   ```
+
+2. **Configure Redis in Django settings**:
+   Add the following to your `settings.py`:
+   ```python
+   CACHES = {
+       'default': {
+           'BACKEND': 'django_redis.cache.RedisCache',
+           'LOCATION': f"redis://{os.getenv('REDIS_HOST', 'localhost')}:{os.getenv('REDIS_PORT', '6379')}/1",
+           'OPTIONS': {
+               'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+           }
+       }
+   }
+   ```
+
+### Sentry
+1. **Set up Sentry DSN and Environment**:
+   Add the following to your `.env` file:
+   ```env
+   SENTRY_DSN=your_sentry_dsn
+   SENTRY_ENVIRONMENT=your_sentry_environment
+   ```
+
+2. **Initialize Sentry in your application**:
+   For Django, add the following to your `settings.py`:
+   ```python
+   import sentry_sdk
+   from sentry_sdk.integrations.django import DjangoIntegration
+
+   sentry_sdk.init(
+       dsn=os.getenv('SENTRY_DSN'),
+       integrations=[DjangoIntegration()],
+       environment=os.getenv('SENTRY_ENVIRONMENT'),
+   )
+   ```
+
+   For Flutter, add the following to your `main.dart`:
+   ```dart
+   import 'package:sentry_flutter/sentry_flutter.dart';
+
+   void main() async {
+     await SentryFlutter.init(
+       (options) {
+         options.dsn = 'YOUR_SENTRY_DSN';
+         options.environment = 'YOUR_SENTRY_ENVIRONMENT';
+       },
+       appRunner: () => runApp(MyApp()),
+     );
+   }
+   ```
+
+---
+
 ## Contributing Guidelines
 
 We welcome contributions to the Dynamic Tourism Project! To contribute, please follow these guidelines:

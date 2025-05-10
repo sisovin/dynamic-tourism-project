@@ -123,7 +123,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS headers configuration
-CORS_ALLOW_ALL_ORIGINS = True  # P38ff
+CORS_ALLOW_ALL_ORIGINS = True
 
 # REST framework settings for API versioning and JWT authentication
 REST_FRAMEWORK = {
@@ -136,14 +136,14 @@ REST_FRAMEWORK = {
 }
 
 # Prisma ORM integration
-PRISMA_DATABASE_URL = os.getenv('PRISMA_DATABASE_URL', 'postgresql://mydatabaseuser:mypassword@localhost:5432/mydatabase')  # Pcc60
+PRISMA_DATABASE_URL = os.getenv('PRISMA_DATABASE_URL', 'postgresql://mydatabaseuser:mypassword@localhost:5432/mydatabase')
 
 # Rate limiting settings for authentication endpoints
-RATELIMIT_VIEW = 'django_ratelimit.views.ratelimited'  # P0126
+RATELIMIT_VIEW = 'django_ratelimit.views.ratelimited'
 
 # Secure cookie settings for production
-SESSION_COOKIE_SECURE = True  # P6b76
-CSRF_COOKIE_SECURE = True  # P6b76
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Redis cache configuration
 CACHES = {
