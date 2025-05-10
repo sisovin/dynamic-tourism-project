@@ -12,6 +12,17 @@ import 'package:dynamic_tourism_project/pages/package_page.dart';
 import 'package:dynamic_tourism_project/pages/service_page.dart';
 import 'package:dynamic_tourism_project/pages/testimonial_page.dart';
 import 'package:dynamic_tourism_project/pages/tour_category_page.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
+
+void main() async {
+  await SentryFlutter.init(
+    (options) {
+      options.dsn = 'YOUR_SENTRY_DSN';
+      options.environment = 'YOUR_SENTRY_ENVIRONMENT';
+    },
+    appRunner: () => runApp(MyApp()),
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
